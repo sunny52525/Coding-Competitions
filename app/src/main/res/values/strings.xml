@@ -3,4 +3,23 @@
     <string name="upcomingcontests">UpcomingContests</string>
 
     <string name="upcomingcontestheader">Upcoming Contests</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_photo_details">Image Details</string>
+    <string name="About_ME">
+    Hi,I am Sunny.An Ungrad Student in Computer Science \nI made this App using Codeforces API\n
+    </string>
+    <string name="LINKS">
+        Connect with \nme\nFacebook.com/sunny52525\nTwitter.com/sunny52525
+        \n
+    </string>
+    <string name="feedback">
+        Give Feedback <b>Here</b>
+        \nGive Anonymous Feedback Here
+
+    </string>
+    <string name="about_weblink">Source code available of this app and Other small Things I made at https://github.com/sunny52525</string>
+    <string name="about_email">For support or suggestion, email kumarsunny3232@gmail.com\n</string>
+    <string name="facebook">To connect with me \nwww.facebook.com/sunny52525\nwww.twitter.com/sunny52525</string>
+    <string name="Searchable_hint">Search Photos</string>
 </resources>

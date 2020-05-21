@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,13 +16,18 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
     getCodeforcesData.OnDataAvailable, RecyclerItemClickListener.OnRecyclerClickListener {
-
+    private var aboutDialog: AlertDialog?= null
     private val TAG = "MainActivity"
     private val recycleradapter = RecyllerViewAdapter(ArrayList())
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate Called")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        fab.setOnClickListener {
+           showAboutDialog()
+        }
+
+
         val getRawData = GetRawData(this)
 //        getRawData.setDownloadCompleteListener(this)
 
@@ -120,7 +126,17 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
         val actualdate = sdf.format(date)
         return actualdate.replace(" ", "") + "T"
     }
+    @SuppressLint("InflateParams")
+    private fun showAboutDialog(){
+        val messgView = layoutInflater.inflate(R.layout.about,null,false)
+        val builder = AlertDialog.Builder(this)
 
+        builder.setTitle(R.string.app_name)
+        builder.setIcon(R.mipmap.ic_launcher)
+        aboutDialog=builder.setView(messgView).create()
+        aboutDialog?.setCanceledOnTouchOutside(true)
+        aboutDialog?.show()
+    }
     override fun onError(exception: Exception) {
         Log.e(TAG, "on error wth $exception")
     }
