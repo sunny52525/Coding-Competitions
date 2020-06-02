@@ -6,27 +6,36 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.backdrop_fragment.*
+import kotlinx.android.synthetic.main.content_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
     getCodeforcesData.OnDataAvailable, RecyclerItemClickListener.OnRecyclerClickListener {
-    private var aboutDialog: AlertDialog?= null
+    private var aboutDialog: android.app.AlertDialog?= null
     private val TAG = "MainActivity"
     private val recycleradapter = RecyllerViewAdapter(ArrayList())
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate Called")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        fab.setOnClickListener {
-           showAboutDialog()
-        }
 
+
+//        fab.setOnClickListener {
+//           showAboutDialog()
+//        }
+
+        sheet_test.setOnClickListener{
+            Toast.makeText(this,"well fuck",Toast.LENGTH_LONG).show()
+            onBackPressed()
+        }
+        configureBackdrop()
 
         val getRawData = GetRawData(this)
 //        getRawData.setDownloadCompleteListener(this)
@@ -62,7 +71,9 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
         val contest = recycleradapter.getContest(postion)
         if (contest != null) {
             var title = contest.name
-            title = title.replace(" ", "+")
+
+            val re = Regex("[^A-Za-z0-9 ]")
+            title = re.replace(title, "+")
             Log.d(TAG, "Title is $title")
             val dated = getDated(contest.TimeDate)
             var spacecount = 0
@@ -95,7 +106,7 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
             end = dated + end + "IST"
 
             time += "IST"
-            time += dated + time
+            time = dated + time
             time = time.replace(" ", "")
             Log.d(TAG, "time is $time")
             Log.d(TAG, "end time is $end")
@@ -108,6 +119,7 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
                     "dates=$time/$end&details=" +
                     "http://www.codeforces.com/contests&location=India&" +
                     "sf=true&output=xml"
+            Log.d(TAG,URL)
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
         }
 
@@ -129,7 +141,7 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
     @SuppressLint("InflateParams")
     private fun showAboutDialog(){
         val messgView = layoutInflater.inflate(R.layout.about,null,false)
-        val builder = AlertDialog.Builder(this)
+        val builder = android.app.AlertDialog.Builder(this)
 
         builder.setTitle(R.string.app_name)
         builder.setIcon(R.mipmap.ic_launcher)
@@ -137,7 +149,43 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
         aboutDialog?.setCanceledOnTouchOutside(true)
         aboutDialog?.show()
     }
+
     override fun onError(exception: Exception) {
         Log.e(TAG, "on error wth $exception")
     }
+
+    ////////////////////////////////////////////
+
+    private var mBottomSheetBehavior: BottomSheetBehavior<View?>? = null
+
+    private fun configureBackdrop() {
+        // Get the fragment reference
+        val fragment = supportFragmentManager.findFragmentById(R.id.filter_fragment)
+
+        fragment?.let {
+            // Get the BottomSheetBehavior from the fragment view
+            BottomSheetBehavior.from(fragment.requireView())?.let { bsb ->
+                // Set the initial state of the BottomSheetBehavior to HIDDEN
+                bsb.state = BottomSheetBehavior.STATE_HIDDEN
+
+                // Set the trigger that will expand your view
+                fab.setOnClickListener { bsb.state = BottomSheetBehavior.STATE_EXPANDED }
+
+                // Set the reference into class attribute (will be used latter)
+                mBottomSheetBehavior = bsb
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        // With the reference of the BottomSheetBehavior stored
+        mBottomSheetBehavior?.let {
+            if (it.state == BottomSheetBehavior.STATE_EXPANDED) {
+                it.state = BottomSheetBehavior.STATE_COLLAPSED
+            } else {
+                super.onBackPressed()
+            }
+        } ?: super.onBackPressed()
+    }
+
 }
