@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.backdrop_fragment.*
 import kotlinx.android.synthetic.main.content_main.*
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 private var codechefRawData = ""
 private var codeforcesRawData = ""    //for caching
@@ -30,6 +27,8 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
 
     private val recycleradapter = RecyllerViewAdapter(ArrayList())
     val recyclerHacker = RecyllerViewAdapterHackerearth(ArrayList())
+    val recyclerAtcoder = RecyllerViewAdapterHackerearth(ArrayList())
+    val recyclerGoogle = RecyllerViewAdapterHackerearth(ArrayList())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate Called")
@@ -79,8 +78,40 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
             onBackPressed()
         }
 
+        backdrop_atcoder.setOnClickListener {
+            textView.setText("Upcoming Contest (Atcoder)")
+            if (atcoderRawData.isNotEmpty()) {
+                onDownloadComplete(atcoderRawData, DownloadStatus.OK, 3)
+            } else {
+                val getRawDataAtcoder = GetRawData(this)
+                getRawDataAtcoder.execute(
+                    "https://clist.by/api/v1/json/contest/?username=shaun_mcafee&api_key=1298d2c77ee2d3f264e61991d6bb63e3cf16361a&limit=100&resource__name=atcoder.jp&filtered=false&order_by=-end",
+                    3
+                )
+            }
+            recyler_view.layoutManager = LinearLayoutManager(this)
+//            recyler_view.addOnItemTouchListener(RecyclerItemClickListener(this, recyler_view, this,2))
+            recyler_view.adapter = recyclerAtcoder
+            onBackPressed()
+        }
 
 
+        backdrop_google.setOnClickListener {
+            textView.setText("Upcoming Contest(Google)")
+            if (googleRawData.isNotEmpty()) {
+                onDownloadComplete(googleRawData, DownloadStatus.OK, 4)
+            } else {
+                val getRawDataGoogle = GetRawData(this)
+                getRawDataGoogle.execute(
+                    "https://clist.by/api/v1/json/contest/?username=shaun_mcafee&api_key=1298d2c77ee2d3f264e61991d6bb63e3cf16361a&limit=100&resource__name=codingcompetitions.withgoogle.com&filtered=false&order_by=-end",
+                    4
+                )
+            }
+            recyler_view.layoutManager = LinearLayoutManager(this)
+//            recyler_view.addOnItemTouchListener(RecyclerItemClickListener(this, recyler_view, this,2))
+            recyler_view.adapter = recyclerGoogle
+            onBackPressed()
+        }
 
 
 
@@ -102,7 +133,18 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
                     hackerearthRawData = data
                     Log.d(TAG, "ondownloadcComplete with Hackerearth data")
                     val gethackerearthdata = getHackerearthData(this)
-                    gethackerearthdata.execute(data)
+                    gethackerearthdata.execute(data, 2)
+                } else if (id == 3) {
+                    atcoderRawData = data
+                    Log.d(TAG, "ondownloadcComplete with Atcoder $data")
+                    val gethackerearthdata = getHackerearthData(this)
+                    gethackerearthdata.execute(data, 3)
+
+                } else if (id == 4) {
+                    googleRawData = data
+                    Log.d(TAG, "Ondownload Complete with $data")
+                    val getGoogledata = getHackerearthData(this)
+                    getGoogledata.execute(data, 4)
                 }
         } else {
             Log.d(TAG, "onDownloadCompleted failed with status $status . Error msg is $data")
@@ -117,15 +159,6 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
     }
 
 
-
-    @SuppressLint("SimpleDateFormat")
-    fun getDated(milli: Int): String {
-        val date = Date(milli * 1000L)
-        val sdf = SimpleDateFormat("yyy MM dd")
-        val actualdate = sdf.format(date)
-        return actualdate.replace(" ", "") + "T"
-    }
-
     @SuppressLint("InflateParams")
     private fun showAboutDialog() {
         val messgView = layoutInflater.inflate(R.layout.about, null, false)
@@ -138,9 +171,15 @@ class MainActivity : AppCompatActivity(), GetRawData.OndownloadComplete,
         aboutDialog?.show()
     }
 
-    override fun OnDataAvailable_hackerearth(data: List<hackerearthData>) {
+    override fun OnDataAvailable_hackerearth(data: List<hackerearthData>, id: Int) {
         Log.d(TAG, "Data parsed $data")
-        recyclerHacker.loadNewData(data)
+        if (id == 2)
+            recyclerHacker.loadNewData(data, 2)
+        else if (id == 3) {
+            recyclerAtcoder.loadNewData(data, 3)
+        } else if (id == 4) {
+            recyclerGoogle.loadNewData(data, 4)
+        }
     }
 
 
