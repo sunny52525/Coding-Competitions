@@ -2,9 +2,11 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#131212"
+    android:background="#000000"
+
     tools:context=".MainActivity">
 
     <include
@@ -23,8 +25,6 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="40dp" />
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
