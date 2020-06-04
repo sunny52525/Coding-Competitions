@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/ode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="17dp"
+        android:fontFamily="sans-serif"
+        android:text="Select"
+        android:textColor="@color/White"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/froces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="sans-serif"
+        android:text="Judge"
+        android:textColor="#FF5252"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ode"
+        app:layout_constraintStart_toEndOf="@+id/ode" />
+
+    <Button
+        android:id="@+id/backdrop_codechef"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#37575656"
+        android:text="Codechef"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/ode"
+        app:layout_constraintTop_toBottomOf="@+id/ode" />
+
+    <Button
+        android:id="@+id/backdrop_codeforces"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#37575656"
+        android:text="Codeforces"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/backdrop_codechef"
+        app:layout_constraintTop_toBottomOf="@+id/backdrop_codechef" />
+
+    <Button
+        android:id="@+id/backdrop_hackerearth"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#37575656"
+        android:text="hackerearth"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/backdrop_codechef"
+        app:layout_constraintTop_toBottomOf="@+id/backdrop_codeforces" />
+
+    <Button
+        android:id="@+id/backdrop_google"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#37575656"
+        android:text="Google"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/backdrop_codeforces"
+        app:layout_constraintTop_toBottomOf="@+id/backdrop_hackerearth" />
+
+    <Button
+        android:id="@+id/backdrop_atcoder"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#37575656"
+        android:text="Atcoder"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/backdrop_hackerearth"
+        app:layout_constraintTop_toBottomOf="@+id/backdrop_google" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

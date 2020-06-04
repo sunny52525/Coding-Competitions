@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212121">
+
+        <TextView
+            android:id="@+id/hackerearth_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Contest_name"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/hackearth_starts_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:text="Starts at:"
+            android:textColor="#ffffff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hackerearth_name" />
+
+        <TextView
+            android:id="@+id/hackearth_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:inputType="textMultiLine|textImeMultiLine"
+            android:text="TextView"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@+id/hackerearth_duration_title"
+            app:layout_constraintStart_toEndOf="@+id/hackerearth_duration_title"
+            app:layout_constraintTop_toTopOf="@+id/hackerearth_duration_title" />
+
+        <TextView
+            android:id="@+id/hackearth_starts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@+id/hackearth_starts_title"
+            app:layout_constraintStart_toEndOf="@+id/hackearth_starts_title" />
+
+        <TextView
+            android:id="@+id/hackerearth_duration_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:text="Duration"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/hackearth_ends_title"
+            app:layout_constraintTop_toBottomOf="@+id/hackearth_ends_title" />
+
+        <TextView
+            android:id="@+id/hackearth_ends_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Ends at:"
+            android:textColor="#ffffff"
+            app:layout_constraintStart_toStartOf="@+id/hackearth_starts_title"
+            app:layout_constraintTop_toBottomOf="@+id/hackearth_starts_title" />
+
+        <TextView
+            android:id="@+id/hackerearth_ends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#ffffff"
+            app:layout_constraintEnd_toEndOf="@+id/hackearth_starts"
+            app:layout_constraintStart_toEndOf="@+id/hackearth_ends_title"
+            app:layout_constraintTop_toTopOf="@+id/hackearth_ends_title" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:background="#000000"
+            android:shadowColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/duration"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="113dp"
+            android:layout_height="82dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/hackereath" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
